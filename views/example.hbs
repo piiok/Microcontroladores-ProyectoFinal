@@ -1,14 +1,165 @@
 <body>
-    <div class="site-section">
-    <div class="container" >
-        <div id="trash"></div>
+    <style>
+        @font-face {
+            font-family: 'lcd';
+            src: url('/fonts/lcd/digital-7.ttf') format('truetype');
+        }
+        #fondo-trash{
+            background: url('/images/paisaje.jpg') no-repeat center center;
+            background-size: cover;
+            /* height: 100vh; */
+            padding-bottom:5rem; 
+            padding-top:6rem; 
+        }
+        #trash{
+            margin-top:0px;
+            background-color:rgba(0,0,0,.5);
+            color: white;
+            border-radius: 5px;
+            font-family: sans-serif;
+            text-align: center;
+            width: 95%;
+            height: 77%;
+            padding: 20px 40px;
+        }
+        #cajaMayor{
+            border-radius: 4px;
+            width:100%;
+            height: calc(100% - 48px);
+            background-color: green;
+            position: relative;
+        }
+        #lcd{
+            position: absolute;
+            font-size: 15px;  
+            font-family: 'lcd';
+            left: calc(50% - 75px);
+            top: 17px;
+            width: 150px;
+            background-color:#3428a5;
+            height: 38px;
+            line-height : 16px;
+            border: solid #191919;
+        }
+        #circle{
+            position: absolute;
+            font-size: 15px;  
+            font-family: 'lcd';
+            right: 80px;
+            top: 17px;
+            width: 40px;
+            background-color:#0a321e;
+            height: 40px;
+            border-radius: 20px;
+        }
+        #cajas{
+            position: absolute;
+            bottom: 20px;
+            height: calc( 100% - 100px);
+            width: 100%;
+            padding: 0px 20px;
+        }
+        .caja{
+            display: inline-block !important;
+            width: 20%;
+            height: 100%;
+        }
+        .caja:before{
+            content: attr(material);
+            font-size: 15px;
+            font-family: 'Oswald', sans-serif;
+            position: relative;
+            text-align: center;
+
+            top:calc( 100% - 4px);
+        }
+
+        #metal{
+            background-color: #ff45008f;
+        }
+
+        #plastico{
+            background-color: darkgreen;            
+        }
+        #vidrio{
+            background-color: #0000ff38;            
+        }
+
+        #indefinido{
+            background-color: #808080a6; 
+        }
+        .nivel{
+            position: absolute;
+            bottom: -1px;
+            width: calc((100%  - 40px)/5 );
+            height: 1px;
+        }
+        .nivel:after{
+            /* box-sizing: border-box; */
+            content:  attr(porcentaje);
+            position: absolute;
+            font-size: 15px;
+            font-family: 'Oswald', sans-serif;
+            top:-25px;
+            left: 0;
+            width: 100%;
+        }
+        #nivelMetal{
+            background-color: #f56e00;
+        }
+
+        #nivelPlastico{
+            background-color: #0aef0a;            
+        }
+        #nivelVidrio{
+            background-color: #003aff;            
+        }
+
+        #nivelIndefinido{
+            background-color: #9f9d9d; 
+        }
+        
+        @media (max-width: 768px){
+            #cajaMayor{
+                height: calc(100% - 96px);
+            }
+            #circle{
+                display: none !important;
+            }
+        }
+
+
+    </style>
+    <div class="site-section" id="fondo-trash">
+    <div class="container">
+        <div id="trash" class="mx-auto">
+            <h1>Prototipo Smart Trash</h1>
+            <div id="cajaMayor">
+                <div id="lcd">
+                    ¡Bienvenido!<br>
+                    Listo para analizar
+                </div>
+                <div id="circle" class="caja"></div>
+                <div id="cajas">
+                    <div id="metal" class="caja" material="Metal">
+                        <div id="nivelMetal" class="nivel"></div>
+                    </div>
+                    <div id="plastico" class="caja" material="Plastico">
+                        <div id="nivelPlastico" class="nivel"></div>
+                    </div>
+                    <div id="vidrio" class="caja" material="Vidrio">
+                        <div id="nivelVidrio" class="nivel"></div>
+                    </div>
+                    <div id="indefinido" class="caja" material="Indefinido">
+                        <div id="nivelIndefinido" class="nivel"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="trash-content"></div>
+        </div>
         <script id="trash-conteiner" type="text/x-handlebars-template">    
-            <ul>
-                <li>Nivel de metal: \{{metal}}</li>
-                <li>Nivel de plastico: \{{plastico}}</li>
-                <li>Nivel de vidrio: \{{vidrio}}</li>
-                <li>Nivel de indefinido: \{{indefinido}}</li>
-            </ul>            
+            Metal: \{{metal}}%, Plastico: \{{plastico}}%, Vidrio: \{{vidrio}}%, Indefinido: \{{indefinido}}%
+                       
         </script>
     </div>
     </div>

@@ -42,7 +42,11 @@
         {{!-- Banner --}}
         <div class="site-wrap">
 
-            <div class="site-navbar " id="banner">
+            <div class="site-navbar 
+            {{#if asincrono}}
+                navbar-sticky
+            {{/if}}
+            " id="banner">
                 <div class="container py-1">
                 <div class="row align-items-center">
                     <div class="col-8 col-md-8 col-lg-4">
@@ -55,7 +59,7 @@
 
                         <ul class="site-menu js-clone-nav d-none d-lg-block">
                         <li class="active">
-                            <a href="index.html">Home</a>
+                            <a href="/home">Home</a>
                         </li>
                         <li><a href="dj.html">DJs</a></li>
                         <li class="has-children">
@@ -205,15 +209,18 @@
     <script>
         $( document ).ready(function() {
             $("#pre-load").fadeOut(1000);
-             $(document).scroll(function() {
-                var banner = $("#banner");
-                var className = "navbar-sticky";
-                if ($(document).scrollTop() > 0) {
-                    banner.addClass(className);
-                } else {
-                    banner.removeClass(className);
-                }
-            });
+            {{#unless asincrono}}
+                $(document).scroll(function() {
+                    var banner = $("#banner");
+                    var className = "navbar-sticky";
+                    if ($(document).scrollTop() > 0) {
+                        banner.addClass(className);
+                    } else {
+                        banner.removeClass(className);
+                    }
+                });
+            {{/unless}}
+            
         });
     </script>
     
