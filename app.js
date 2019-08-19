@@ -46,7 +46,7 @@ app.get("/example", async  (req, res) => {
         
     //     console.log('act');
     // });
-    res.render('example',{title: 'Example',asincrono:true});
+    res.render('example',{title: 'Example',asincrono:true,options:{cache:false,precompiled:false}});
 });
 
 
