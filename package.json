@@ -4,7 +4,8 @@
   "description": "clasificador de basura en metal, plastico, vidrio e indefinido",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "prueba": "node indexPrueba.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/piiok/Microcontroladores-ProyectoFinal#readme",
   "dependencies": {
-    "colors": "^1.3.3"
+    "colors": "^1.3.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0"
   }
 }
