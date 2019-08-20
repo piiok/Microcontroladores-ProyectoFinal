@@ -5,10 +5,11 @@
             src: url('/fonts/lcd/digital-7.ttf') format('truetype');
         }
         #fondo-trash{
-            background: url('/images/paisaje.jpg') no-repeat center center;
-            background-size: cover;
+            /*background: url('/images/paisaje.jpg') no-repeat center center;*/
+            background-color: lightslategrey;
+            /*background-size: cover;*/
             /* height: 100vh; */
-            padding-bottom:5rem; 
+            padding-bottom:2rem; 
             padding-top:6rem; 
         }
         #trash{
@@ -19,43 +20,34 @@
             font-family: sans-serif;
             text-align: center;
             width: 95%;
-            height: 77%;
+            height: 83%;
             padding: 20px 40px;
         }
         #cajaMayor{
+            color: white;
             border-radius: 4px;
             width:100%;
-            height: calc(100% - 48px);
-            background-color: green;
+            height: calc(98% - 48px);
+            background-color: #005e35;
             position: relative;
         }
         #lcd{
+            color: white;
             position: absolute;
             font-size: 15px;  
             font-family: 'lcd';
             left: calc(50% - 75px);
             top: 17px;
             width: 150px;
-            background-color:#3428a5;
+            background-color:#332e62;
             height: 38px;
             line-height : 16px;
             border: solid #191919;
         }
-        #circle{
-            position: absolute;
-            font-size: 15px;  
-            font-family: 'lcd';
-            right: 80px;
-            top: 17px;
-            width: 40px;
-            background-color:#0a321e;
-            height: 40px;
-            border-radius: 20px;
-        }
         #cajas{
             position: absolute;
-            bottom: 20px;
-            height: calc( 100% - 100px);
+            bottom: 40px;
+            height: calc( 100% - 140px);
             width: 100%;
             padding: 0px 20px;
         }
@@ -63,6 +55,8 @@
             display: inline-block !important;
             width: 20%;
             height: 100%;
+            background-color: #00000026;
+            margin-right: 8px;
         }
         .caja:before{
             content: attr(material);
@@ -73,21 +67,21 @@
 
             top:calc( 100% - 4px);
         }
-
+        /*
         #metal{
-            background-color: #ff45008f;
+            background-color: #00000026;
         }
 
         #plastico{
-            background-color: darkgreen;            
+            background-color: #35863580;            
         }
         #vidrio{
-            background-color: #0000ff38;            
+            background-color: #3c3cb566;            
         }
 
         #indefinido{
             background-color: #808080a6; 
-        }
+        }*/
         .nivel{
             position: absolute;
             bottom: -1px;
@@ -105,14 +99,14 @@
             width: 100%;
         }
         #nivelMetal{
-            background-color: #f56e00;
+            background-color: #dc7a2b;
         }
 
         #nivelPlastico{
-            background-color: #0aef0a;            
+            background-color: #45d345;            
         }
         #nivelVidrio{
-            background-color: #003aff;            
+            background-color: #3755bb;            
         }
 
         #nivelIndefinido{
@@ -139,7 +133,6 @@
                     ¡Bienvenido!<br>
                     Listo para analizar
                 </div>
-                <div id="circle" class="caja"></div>
                 <div id="cajas">
                     <div id="metal" class="caja" material="Metal">
                         <div id="nivelMetal" class="nivel"></div>
