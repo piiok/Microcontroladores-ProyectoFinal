@@ -23,6 +23,7 @@ Servo servoMotorSeguro;
 float metalDetected;
 int monitoring,pausa,distancia,duracion,conteo,conteom;
 int metalDetection = 1;
+int tiempo = 500; //tiempo de caida
 
 //Crear el objeto lcd  dirección  0x3F y 16 columnas x 2 filas
 LiquidCrystal_I2C lcd(0x27,16,2);  
@@ -53,9 +54,10 @@ void setup(){
   servoMotorPlastico.write(0);
   servoMotorVidrio.attach(servoN3);
   servoMotorVidrio.write(0);
-  servoMotorClasif.attach(servoN4);
-  servoMotorClasif.write(0);
   servoMotorSeguro.attach(servoN5);
+  servoMotorSeguro.write(0);
+  servoMotorClasif.attach(servoN4);
+  servoMotorClasif.write(100);
   servoMotorSeguro.write(100);
 }
 
@@ -71,18 +73,12 @@ digitalWrite(Ptrig,LOW);
 
 duracion = pulseIn(Pecho,HIGH);
 distancia = duracion*0.017;
+Serial.print("Distancia: ");
 Serial.println(distancia);
 
-if(distancia <= 3){ 
-  
-  //contador de la cantidad de basura ingresada
-  int estado = analogRead(sensor);
-  Serial.println("sensor ----------------");
-  Serial.println(estado);
-  conteo = conteo + 1;
-  Serial.println(conteo); 
-  //DELAY
-  pausa = distancia*10;
+if(distancia <= 9){ 
+  //delay(200);
+  Serial.println("----------- MATERIAL DETECTADO ----------------");
   
   //Configuración de la pantalla
   lcd.setCursor(1, 1);
@@ -105,33 +101,23 @@ if(distancia <= 3){
       //Abre compuerta de metal
       servoMotorVidrio.write(0);
       servoMotorPlastico.write(0);
-      for(int i =0; i<=90; i++){
-       servoMotorMetal.write(i);
-        delay(40);
-      }
+      servoMotorMetal.write(90);
 
       //Abre compuerta caja clasificadora
       servoMotorSeguro.write(0);
-      for(int i =0; i<=90; i++){
-       servoMotorClasif.write(i);
-        delay(40);
-      }
+      servoMotorClasif.write(0);
 
-      lcd.setCursor(1, 1);
-      lcd.println(" Basura Callendo");
-      delay(10000);
-      //for(int i =90; i>0; i-- ){
-        servoMotorClasif.write(90);
-        //delay(40);
-    //  } 
+      delay(tiempo);
+      servoMotorClasif.write(100);
+      delay(150);
       servoMotorSeguro.write(100);
-      for(int i =90; i>0; i-- ){
-        servoMotorMetal.write(i);
-        delay(40);
-      } 
+      servoMotorMetal.write(0);
    }
    else{
       digitalWrite(led, HIGH); 
+      int estado = analogRead(sensor);
+      Serial.print("Fotosensor: ");
+      Serial.println(estado);
       if(estado == 8 || estado == 9 || estado == 10){
         lcd.setCursor(1, 1);
         lcd.println("Vidrio detectado");
@@ -139,30 +125,17 @@ if(distancia <= 3){
         
         servoMotorMetal.write(0);
         servoMotorPlastico.write(0);
-        for(int i =0; i<=90; i++){
-         servoMotorVidrio.write(i);
-          delay(40);
-        }
+        servoMotorVidrio.write(90);
   
         //Abre compuerta caja clasificadora
         servoMotorSeguro.write(0);
-        for(int i =0; i<=90; i++){
-         servoMotorClasif.write(i);
-          delay(40);
-        }
-  
-        lcd.setCursor(1, 1);
-        lcd.println(" Basura Callendo");
-        delay(10000);
-        for(int i =90; i>0; i-- ){
-          servoMotorClasif.write(i);
-          delay(40);
-        } 
+        servoMotorClasif.write(0);
+ 
+        delay(tiempo);
+        servoMotorClasif.write(100);  
+        delay(150);        
         servoMotorSeguro.write(100);
-        for(int i =90; i>0; i-- ){
-          servoMotorVidrio.write(i);
-          delay(40);
-        } 
+        servoMotorVidrio.write(0);
       
       }else{
         if(estado == 6 || estado == 7){
@@ -173,34 +146,22 @@ if(distancia <= 3){
           //Abre compuerta Plastico
           servoMotorMetal.write(0);
           servoMotorVidrio.write(0);
-          for(int i =0; i<=90; i++){
-           servoMotorPlastico.write(i);
-            delay(40);
-          }
+          servoMotorPlastico.write(90);
     
           //Abre compuerta caja clasificadora
           servoMotorSeguro.write(0);
-          for(int i =0; i<=90; i++){
-           servoMotorClasif.write(i);
-            delay(40);
-          }
+          servoMotorClasif.write(0);
     
-          lcd.setCursor(1, 1);
-          lcd.println(" Basura Callendo");
-          delay(10000);
-          for(int i =90; i>0; i-- ){
-            servoMotorClasif.write(i);
-            delay(40);
-          } 
+          delay(tiempo);
+          servoMotorClasif.write(100);
+          delay(150);
           servoMotorSeguro.write(100);
-          for(int i =90; i>0; i-- ){
-            servoMotorPlastico.write(i);
-            delay(40);
-          } 
+          servoMotorPlastico.write(0);
+          
         }else{
           lcd.setCursor(0, 1);
           lcd.println("Ordinario detectado");
-          Serial.print("Ordinario detectado.");
+          Serial.println("Ordinario detectado.");
 
           //Abre compuerta Ordinario 
           servoMotorMetal.write(0);
@@ -209,18 +170,11 @@ if(distancia <= 3){
           
           //Abre compuerta caja clasificadora
           servoMotorSeguro.write(0);
-          for(int i =0; i<=90; i++){
-           servoMotorClasif.write(i);
-            delay(40);
-          }
-    
-          lcd.setCursor(1, 1);
-          lcd.println(" Basura Callendo");
-          delay(10000);
-          for(int i =90; i>0; i-- ){
-            servoMotorClasif.write(i);
-            delay(40);
-          } 
+          servoMotorClasif.write(0);
+          
+          delay(tiempo);         
+          servoMotorClasif.write(100);
+          delay(150);
           servoMotorSeguro.write(100);
         }
       }
@@ -230,7 +184,8 @@ if(distancia <= 3){
     servoMotorVidrio.write(0);
     servoMotorMetal.write(0); 
     servoMotorPlastico.write(0);
-    servoMotorClasif.write(0);
+    servoMotorClasif.write(100);
+    delay(150);
     servoMotorSeguro.write(100);
     
     digitalWrite(led, LOW);
@@ -239,6 +194,6 @@ if(distancia <= 3){
     lcd.setCursor(1, 1);
     lcd.println(" ¡ Bienvenido ! ");
  }
- 
+ delay(200);
   
 }
