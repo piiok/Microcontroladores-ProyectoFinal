@@ -1,4 +1,4 @@
-#include <NewPing.h>
+//#include <NewPing.h>
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
 #include <Servo.h>
@@ -20,15 +20,15 @@ Servo servoMotorSeguro;
 #define servoN4 5 //Servo Clasificador
 #define servoN5 6 //Servo Asegurador
 
-float metalDetected,duracion;
-int monitoring,pausa,distancia,conteo,conteom;
+float metalDetected;
+int monitoring,pausa,distancia,duracion,conteo,conteom;
 int metalDetection = 1;
 
 //Crear el objeto lcd  dirección  0x3F y 16 columnas x 2 filas
 LiquidCrystal_I2C lcd(0x27,16,2);  
 
 // Se crea un objeto con la libreria NewPing llamado sonar
-NewPing sonar(Ptrig, Pecho, 200); // Each sensor's trigger pin, echo pin, and max distance to ping.
+//NewPing sonar(Ptrig, Pecho, 200); // Each sensor's trigger pin, echo pin, and max distance to ping.
 
 void setup(){
   Serial.begin(9600);
@@ -62,9 +62,18 @@ void setup(){
 void loop(){
 
 //Ultrasonido detectando objeto
-int distancia = sonar.ping_cm();
+
+digitalWrite(Ptrig,LOW);
+delayMicroseconds(5);
+digitalWrite(Ptrig,HIGH);
+delayMicroseconds(10);
+digitalWrite(Ptrig,LOW);
+
+duracion = pulseIn(Pecho,HIGH);
+distancia = duracion*0.017;
 Serial.println(distancia);
-if(distancia <= 5){ 
+
+if(distancia <= 3){ 
   
   //contador de la cantidad de basura ingresada
   int estado = analogRead(sensor);
@@ -111,10 +120,10 @@ if(distancia <= 5){
       lcd.setCursor(1, 1);
       lcd.println(" Basura Callendo");
       delay(10000);
-      for(int i =90; i>0; i-- ){
-        servoMotorClasif.write(i);
-        delay(40);
-      } 
+      //for(int i =90; i>0; i-- ){
+        servoMotorClasif.write(90);
+        //delay(40);
+    //  } 
       servoMotorSeguro.write(100);
       for(int i =90; i>0; i-- ){
         servoMotorMetal.write(i);
