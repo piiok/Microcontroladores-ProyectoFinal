@@ -1,6 +1,6 @@
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBZdqfw25tj6h76eS6qvphzoxgRE30nabA",
+  apiKey: "********************",
   authDomain: "smart-trahs.firebaseapp.com",
   databaseURL: "https://smart-trahs.firebaseio.com",
   projectId: "smart-trahs",
