@@ -5,8 +5,8 @@ var firebaseConfig = {
   databaseURL: "https://smart-trahs.firebaseio.com",
   projectId: "smart-trahs",
   storageBucket: "smart-trahs.appspot.com",
-  messagingSenderId: "1087005906697",
-  appId: "1:1087005906697:web:41c8ca0e3e8b9d8a"
+  messagingSenderId: "**********",
+  appId: "*******"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
